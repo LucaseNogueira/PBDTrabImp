@@ -16,10 +16,6 @@ public class MainMenuBar extends JPanel{
     private JButton btnCreateBDA;
     private JButton btnShellBDA;
     
-//    private final int HEIGHT = 22;
-//    private final int B_HEIGHT = 20;
-//    private final int B_WIDTH = 40;
-    
     public MainMenuBar(MainControllerInterface mainController){
         this.mainController = mainController;
         init();
@@ -34,7 +30,6 @@ public class MainMenuBar extends JPanel{
     private void defineProperties() {
         setBackground(new Color(204, 255, 204));
         ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEFT);
-//        setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
 
     private void initComponents() {
@@ -42,7 +37,7 @@ public class MainMenuBar extends JPanel{
         btnCreateBDA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("btnCreateBDA");
+                mainController.showInputDatabase();
             }
         });
         

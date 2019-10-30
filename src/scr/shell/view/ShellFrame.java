@@ -13,8 +13,10 @@ public class ShellFrame extends JFrame{
     public static final int HEIGHT = 400;
     private JDesktopPane desktop;
     private ShellMenuInternalFrame shellMenu;
+    private String name;
 
-    public ShellFrame(MainControllerInterface mainController) {
+    public ShellFrame(MainControllerInterface mainController,String name) {
+        this.name = name.toUpperCase();
         init();
     }
 
@@ -27,7 +29,7 @@ public class ShellFrame extends JFrame{
     private void defineProperties() {
         setSize(new Dimension(WIDTH, HEIGHT));
         setLocationRelativeTo(null);
-        setTitle("SHELL - PBDTrabImp");
+        setTitle("PBDTrabImp - "+name+" SHELL");
     }
 
     private void initComponents() {

@@ -5,6 +5,8 @@
  */
 package scr.main.controller;
 
+import java.util.List;
+
 /**
  *
  * @author lucas
@@ -16,5 +18,18 @@ public interface MainControllerInterface {
     void detach(MainControllerObserver obs);
     
     void showShell();
+
+    void showInputDatabase();
+
+    void createDatabase(String dbName);
     
+    void addDatabaseName(String dbName);
+
+    void showError(String error_Não_foi_possivel_criar_um_novo_banc, String message);
+    
+    List<String> checkRepositories();
+
+    List<String> getDatabaseName();
+
+    void iWantThisBD(String name,boolean status);
 }

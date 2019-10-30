@@ -11,6 +11,16 @@ package scr.main.controller;
  */
 public interface MainControllerObserver {
 
-    void openANewShell();
+    void openANewShell(String shellTitle);
+
+    void openDatabaseInputAlert(String message);
+
+    void systemError(String title, String message);
+
+    void createDBButton(String dbName);
+
+    public void chosenBD(String name, boolean status);
+
+    public void rejectedBD(String name, boolean status);
     
 }
