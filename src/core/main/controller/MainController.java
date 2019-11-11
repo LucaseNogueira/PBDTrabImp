@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import core.dao.CheckRepositories;
 import core.dao.CreateDatabase;
+import core.dao.utils.STMTCategory;
 
 public class MainController implements MainControllerInterface {
 
@@ -101,6 +102,27 @@ public class MainController implements MainControllerInterface {
         }
     }
 
+    @Override
+    public boolean getShellText(String txt) {
+        boolean aux = false;
+        
+        STMTCategory category = STMTCategory.getInstance();
+        
+        if(txt == null || "".equals(txt)){
+            notifyShellNullPointError("Erro, campo de texto da shell de desenvolvimento esta vazio!!!");
+        }else{
+            if(category.haveCategory(txt)){
+                aux = true;
+            }else{
+                notifyShellSentenceError("Erro, a sentença nao segue uma das sequintes requisições:\n"
+                        + "* Não segue a sintaxe de criação de tabela: create table [<nomebd>].<nometabela> ( <nomecol> <tipocol> [,<nomecol> <tipocol>]*)\n"
+                        + "* Não segue a sintaxe de inserção em tabelas:  insert into [<nomebd>].<nometabela> (<nomecol> [,<nomecol>]*) values (<literal> [,<literal>]*)\n"
+                        + "* Não segue a sintaxe de listagem de uma tabela:  select * from [<nomebd>].<nometabela> ");
+            }
+        }
+        return aux;
+    }
+
     private void notifyShowShell(String shellTitle) {
         for (MainControllerObserver obs : observers) {
             obs.openANewShell(shellTitle);
@@ -143,4 +165,15 @@ public class MainController implements MainControllerInterface {
         }
     }
 
+    private void notifyShellNullPointError(String erro) {
+        for(MainControllerObserver obs : observers){
+            obs.shellNullPoint(erro);
+        }
+    }
+
+    private void notifyShellSentenceError(String erro) {
+        for(MainControllerObserver obs : observers){
+            obs.shellSintaxeErro(erro);
+        }
+    }
 }

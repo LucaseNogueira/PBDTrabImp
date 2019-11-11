@@ -1,20 +1,42 @@
 package core.dao.utils;
 
-public class DatabaseTypes implements DatabaseTypeInterface{
+public class DatabaseTypes {
+
+    public static boolean typeApproved(String type) {
+        boolean aux = false;
+        switch (type) {
+            case "int":
+                aux = true;
+                break;
+            case "float":
+                aux = true;
+                break;
+        }
+        if (type.length() > 4) {
+            String str = type.substring(0, 4);
+            System.out.println("Substring: " + str);
+            if ("char".equals(str)) {
+                str = type.substring(4);
+                System.out.println("char Substring: "+str);
+                aux = sizeApproved(str);
+            }
+        }
+
+        return aux;
+    }
     
-    String[] dbTypes;
-    
-    public DatabaseTypes(){
+    private static boolean sizeApproved(String str){
+        boolean aux = false;
         
+        str = str.replace("(", "");
+        str = str.replace(")", "");
+        
+        int size = Integer.parseInt(str);
+        
+        if(size <= 20){
+            aux = true;
+        }
+        return aux;
     }
 
-    @Override
-    public void addType(String type) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void removeType(String type) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

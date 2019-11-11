@@ -18,7 +18,7 @@ public class ShellFrame extends JFrame{
 
     public ShellFrame(MainControllerInterface mainController,String name) {
         this.mainController = mainController;
-        this.name = name.toUpperCase();
+        this.name = name;
         init();
     }
 

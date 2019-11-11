@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import core.main.controller.MainControllerInterface;
 
-public class CreateDatabase implements PersistDB{
+public class CreateDatabase{
     
     private MainControllerInterface mainController;
 
@@ -17,7 +17,6 @@ public class CreateDatabase implements PersistDB{
         this.mainController = mc;
     }
     
-    @Override
     public void visit(String dbName) {
         File here = new File(System.getProperty("user.dir"));
         String root = here.getParent()+"\\Data\\"+dbName;

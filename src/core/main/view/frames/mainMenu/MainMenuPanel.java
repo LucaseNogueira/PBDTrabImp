@@ -20,6 +20,7 @@ public class MainMenuPanel extends JPanel implements MainControllerObserver {
     private MainMenuBar menuBar;
     private JPanel menuContent;
     private JScrollPane leftScroll;
+    private JScrollPane rightScroll;
     private MainMenuSideBar menuSideBar;
     private ResultShellField resultShell;
 
@@ -52,13 +53,15 @@ public class MainMenuPanel extends JPanel implements MainControllerObserver {
         resultShell = new ResultShellField();
         
         leftScroll = new JScrollPane(menuSideBar);
+        
+        rightScroll = new JScrollPane(resultShell);
     }
 
     private void addComponents() {
         add(menuBar);
 
         menuContent.add(leftScroll);
-        menuContent.add(resultShell);
+        menuContent.add(rightScroll);
 
         add(menuContent);
     }
@@ -95,6 +98,18 @@ public class MainMenuPanel extends JPanel implements MainControllerObserver {
     @Override
     public void rejectedBD(String name, boolean status) {
         menuSideBar.bdReject(name,status);
+        updateUI();
+    }
+
+    @Override
+    public void shellNullPoint(String erro) {
+        resultShell.showMessage(erro);
+        updateUI();
+    }
+
+    @Override
+    public void shellSintaxeErro(String erro) {
+        resultShell.showMessage(erro);
         updateUI();
     }
 }

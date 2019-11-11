@@ -22,5 +22,9 @@ public interface MainControllerObserver {
     public void chosenBD(String name, boolean status);
 
     public void rejectedBD(String name, boolean status);
+
+    public void shellNullPoint(String erro);
+
+    public void shellSintaxeErro(String erro);
     
 }

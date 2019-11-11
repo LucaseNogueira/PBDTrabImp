@@ -8,5 +8,6 @@ package core.shell.controller;
 public interface ShellControllerInterface {
 
     public void textAreaResult(String txtVerification);
+    public String getDBName();
     
 }

@@ -32,4 +32,6 @@ public interface MainControllerInterface {
     List<String> getDatabaseName();
 
     void iWantThisBD(String name,boolean status);
+
+    public boolean getShellText(String txt);
 }
