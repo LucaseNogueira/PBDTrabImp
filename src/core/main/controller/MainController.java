@@ -5,6 +5,7 @@ import java.util.List;
 import core.dao.CheckRepositories;
 import core.dao.CreateDatabase;
 import core.dao.utils.STMTCategory;
+import core.model.Database;
 
 public class MainController implements MainControllerInterface {
 
@@ -94,26 +95,26 @@ public class MainController implements MainControllerInterface {
         if (status == false) {
             dbActing = name;
             status = true;
-            notifyChosenBD(name,status);
-        }else{
+            notifyChosenBD(name, status);
+        } else {
             dbActing = null;
             status = false;
-            notifyRejectedBD(name,status);
+            notifyRejectedBD(name, status);
         }
     }
 
     @Override
     public boolean getShellText(String txt) {
         boolean aux = false;
-        
+
         STMTCategory category = STMTCategory.getInstance();
-        
-        if(txt == null || "".equals(txt)){
+
+        if (txt == null || "".equals(txt)) {
             notifyShellNullPointError("Erro, campo de texto da shell de desenvolvimento esta vazio!!!");
-        }else{
-            if(category.haveCategory(txt)){
+        } else {
+            if (category.haveCategory(txt)) {
                 aux = true;
-            }else{
+            } else {
                 notifyShellSentenceError("Erro, a sentença nao segue uma das sequintes requisições:\n"
                         + "* Não segue a sintaxe de criação de tabela: create table [<nomebd>].<nometabela> ( <nomecol> <tipocol> [,<nomecol> <tipocol>]*)\n"
                         + "* Não segue a sintaxe de inserção em tabelas:  insert into [<nomebd>].<nometabela> (<nomecol> [,<nomecol>]*) values (<literal> [,<literal>]*)\n"
@@ -121,6 +122,21 @@ public class MainController implements MainControllerInterface {
             }
         }
         return aux;
+    }
+
+    @Override
+    public void ShellSuccessMessage(String message) {
+        notifySuccessMessage(message);
+    }
+
+    @Override
+    public void ShellErrorMessage(String message) {
+        notifyErrorMessage(message);
+    }
+
+    @Override
+    public void showTable(Database banco) {
+        notifyShowTable(banco);
     }
 
     private void notifyShowShell(String shellTitle) {
@@ -153,27 +169,45 @@ public class MainController implements MainControllerInterface {
         }
     }
 
-    private void notifyChosenBD(String name,boolean status) {
+    private void notifyChosenBD(String name, boolean status) {
         for (MainControllerObserver obs : observers) {
-            obs.chosenBD(name,status);
+            obs.chosenBD(name, status);
         }
     }
 
     private void notifyRejectedBD(String name, boolean status) {
         for (MainControllerObserver obs : observers) {
-            obs.rejectedBD(name,status);
+            obs.rejectedBD(name, status);
         }
     }
 
     private void notifyShellNullPointError(String erro) {
-        for(MainControllerObserver obs : observers){
+        for (MainControllerObserver obs : observers) {
             obs.shellNullPoint(erro);
         }
     }
 
     private void notifyShellSentenceError(String erro) {
-        for(MainControllerObserver obs : observers){
+        for (MainControllerObserver obs : observers) {
             obs.shellSintaxeErro(erro);
+        }
+    }
+
+    private void notifySuccessMessage(String success) {
+        for (MainControllerObserver obs : observers) {
+            obs.shellSintaxeSuccess(success);
+        }
+    }
+
+    private void notifyErrorMessage(String erro) {
+        for (MainControllerObserver obs : observers) {
+            obs.shellSintaxeErro(erro);
+        }
+    }
+
+    private void notifyShowTable(Database banco) {
+        for (MainControllerObserver obs : observers) {
+            obs.showTable(banco);
         }
     }
 }

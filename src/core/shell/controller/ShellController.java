@@ -2,6 +2,7 @@ package core.shell.controller;
 
 import core.dao.PersistDB;
 import core.main.controller.MainControllerInterface;
+import core.model.Database;
 
 public class ShellController implements ShellControllerInterface{
     
@@ -25,5 +26,20 @@ public class ShellController implements ShellControllerInterface{
     @Override
     public String getDBName() {
         return this.dbName;
+    }
+
+    @Override
+    public void success(String message) {
+        mainController.ShellSuccessMessage(message);
+    }
+
+    @Override
+    public void failed(String message) {
+        mainController.ShellErrorMessage(message);
+    }
+
+    @Override
+    public void showTable(Database banco) {
+        mainController.showTable(banco);
     }
 }

@@ -3,11 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Git_Repositorios/Repositorios/PBDTrabImp/PBDTrabImp/src/core/dao/CheckRepositories.java</file>
             <file>file:/C:/Git_Repositorios/Repositorios/PBDTrabImp/PBDTrabImp/src/core/dao/antlr/SQLiteBaseListener.java</file>
-            <file>file:/C:/Git_Repositorios/Repositorios/PBDTrabImp/PBDTrabImp/src/core/dao/CreateTable.java</file>
-            <file>file:/C:/Git_Repositorios/Repositorios/PBDTrabImp/PBDTrabImp/src/core/shell/view/ShellFrame.java</file>
-            <file>file:/C:/Git_Repositorios/Repositorios/PBDTrabImp/PBDTrabImp/src/core/dao/utils/DatabaseTypes.java</file>
+            <file>file:/C:/Git_Repositorios/Repositorios/PBDTrabImp/PBDTrabImp/src/core/dao/InsertTable.java</file>
         </group>
     </open-files>
 </project-private>

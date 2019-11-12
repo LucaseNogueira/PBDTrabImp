@@ -1,6 +1,9 @@
 package core.dao;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,5 +34,29 @@ public class CheckRepositories {
         File data = new File(here.getParent() + "\\Data");
         
         return data.getPath()+ "\\" + dbName + "\\Metadata";
+    }
+    
+    public static boolean tableExists(String dbName,String name) {
+        boolean aux = true;
+        
+        File here = new File(System.getProperty("user.dir"));
+        Path pBin = Paths.get(here.getParent()+"\\Data\\"+dbName+"\\"+name+".dat");
+        Path pXml = Paths.get(here.getParent()+"\\Data\\"+dbName+"\\Metadata\\"+name+".xml");
+        
+        if(!Files.exists(pBin) || !Files.exists(pXml)){
+            aux = false;
+        }
+        
+        return aux;
+    }
+
+    public static String getTablePath(String dbName, String name) {
+        File here = new File(System.getProperty("user.dir"));
+        return here.getParent()+"\\Data\\"+dbName+"\\"+name+".dat";
+    }
+
+    public static String getTableMetaPath(String dbName, String name) {
+        File here = new File(System.getProperty("user.dir"));
+        return here.getParent()+"\\Data\\"+dbName+"\\Metadata\\"+name+".xml";
     }
 }

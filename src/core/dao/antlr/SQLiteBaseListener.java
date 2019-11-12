@@ -2,6 +2,8 @@ package core.dao.antlr;
 
 // Generated from SQLite.g4 by ANTLR 4.7.2
 import core.dao.CreateTable;
+import core.dao.InsertTable;
+import core.dao.SelectTable;
 import core.shell.controller.ShellControllerInterface;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -16,6 +18,10 @@ public class SQLiteBaseListener implements SQLiteListener {
 
     private ShellControllerInterface shellController;
     private CreateTable createTable;
+    private InsertTable insertTable;
+    private SelectTable selectTable;
+
+    private int state;
 
     public SQLiteBaseListener(ShellControllerInterface sc) {
         this.shellController = sc;
@@ -273,8 +279,8 @@ public class SQLiteBaseListener implements SQLiteListener {
     @Override
     public void enterCreate_table_stmt(SQLiteParser.Create_table_stmtContext ctx) {
         String dbName = shellController.getDBName();
-        System.out.println(dbName);
         createTable = new CreateTable(shellController, dbName);
+        state = ctx.invokingState;
     }
 
     /**
@@ -286,7 +292,6 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void exitCreate_table_stmt(SQLiteParser.Create_table_stmtContext ctx) {
-        System.out.println("FIM Create_table_stmt");
         createTable.createFiles();
     }
 
@@ -541,7 +546,9 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterInsert_stmt(SQLiteParser.Insert_stmtContext ctx) {
-        System.out.println("Comando insert");
+        String dbName = shellController.getDBName();
+        insertTable = new InsertTable(shellController, dbName);
+        state = ctx.invokingState;
     }
 
     /**
@@ -553,6 +560,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void exitInsert_stmt(SQLiteParser.Insert_stmtContext ctx) {
+        insertTable.finishInsert();
     }
 
     /**
@@ -828,7 +836,6 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterType_name(SQLiteParser.Type_nameContext ctx) {
-        System.out.println("Tipo da coluna " + ctx.getText());
         createTable.typeColumn(ctx.getText());
     }
 
@@ -1226,7 +1233,9 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterSelect_core(SQLiteParser.Select_coreContext ctx) {
-        System.out.println("Comando select");
+        String dbName = shellController.getDBName();
+        selectTable = new SelectTable(shellController, dbName);
+        state = ctx.invokingState;
     }
 
     /**
@@ -1238,6 +1247,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void exitSelect_core(SQLiteParser.Select_coreContext ctx) {
+        selectTable.tableSelected();
     }
 
     /**
@@ -1315,7 +1325,7 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterLiteral_value(SQLiteParser.Literal_valueContext ctx) {
-        System.out.println("Literal " + ctx.getText());
+        insertTable.addLiteral(ctx.getText());
     }
 
     /**
@@ -1514,8 +1524,17 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterTable_name(SQLiteParser.Table_nameContext ctx) {
-        System.out.println("Nome da tabela " + ctx.getText());
-        createTable.createTableName(ctx.getText());
+        switch (state) {
+            case 214:
+                createTable.createTableName(ctx.getText());
+                break;
+            case 226:
+                insertTable.setTbDirectories(ctx.getText());
+                break;
+            case 641:
+                selectTable.setTableName(ctx.getText());
+                break;
+        }
     }
 
     /**
@@ -1582,8 +1601,16 @@ public class SQLiteBaseListener implements SQLiteListener {
      */
     @Override
     public void enterColumn_name(SQLiteParser.Column_nameContext ctx) {
-        System.out.println("Nome da coluna " + ctx.getText());
-        createTable.createColumn(ctx.getText());
+        switch (state) {
+            case 214:
+                createTable.createColumn(ctx.getText());
+                break;
+            case 226:
+                insertTable.setTbColumn(ctx.getText());
+                break;
+            case 641:
+                break;
+        }
     }
 
     /**

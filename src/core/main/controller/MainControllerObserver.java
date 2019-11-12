@@ -5,6 +5,8 @@
  */
 package core.main.controller;
 
+import core.model.Database;
+
 /**
  *
  * @author lucas
@@ -26,5 +28,9 @@ public interface MainControllerObserver {
     public void shellNullPoint(String erro);
 
     public void shellSintaxeErro(String erro);
+
+    public void shellSintaxeSuccess(String success);
+
+    public void showTable(Database banco);
     
 }

@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import core.main.controller.MainController;
 import core.main.controller.MainControllerInterface;
 import core.main.controller.MainControllerObserver;
+import core.model.Database;
 import core.shell.view.ShellFrame;
 import core.utils.Alerts;
 
@@ -45,7 +46,7 @@ public class MainMenuPanel extends JPanel implements MainControllerObserver {
 
         menuContent = new JPanel();
         menuContent.setLayout(new FlowLayout());
-//        menuContent.setPreferredSize(new Dimension(WIDTH, 584));
+        
         ((FlowLayout) menuContent.getLayout()).setAlignment(FlowLayout.LEFT);
 
         menuSideBar = new MainMenuSideBar(mainController);
@@ -111,5 +112,15 @@ public class MainMenuPanel extends JPanel implements MainControllerObserver {
     public void shellSintaxeErro(String erro) {
         resultShell.showMessage(erro);
         updateUI();
+    }
+
+    @Override
+    public void shellSintaxeSuccess(String success) {
+        resultShell.showMessage(success);
+    }
+
+    @Override
+    public void showTable(Database banco) {
+        resultShell.showTable(banco);
     }
 }

@@ -14,10 +14,8 @@ public class DatabaseTypes {
         }
         if (type.length() > 4) {
             String str = type.substring(0, 4);
-            System.out.println("Substring: " + str);
             if ("char".equals(str)) {
                 str = type.substring(4);
-                System.out.println("char Substring: "+str);
                 aux = sizeApproved(str);
             }
         }

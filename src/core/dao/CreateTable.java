@@ -96,10 +96,10 @@ public class CreateTable {
                 docXml.appendChild(root);
                 
                 Element line = docXml.createElement("line");
-                Attr id = docXml.createAttribute("genericId");
-                id.setValue("1");
-                
-                line.setAttributeNode(id);
+//                Attr id = docXml.createAttribute("genericId");
+//                id.setValue("0");
+//                
+//                line.setAttributeNode(id);
                 root.appendChild(line);
                 
                 Element columns;
@@ -134,8 +134,11 @@ public class CreateTable {
             } catch (TransformerException ex) {
                 Logger.getLogger(CreateTable.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            message = "Sua tabela foi armazenada no banco de dados!!!";
+            shellController.success(message);
         }else{
-            System.out.println("Deu Ruim");
+            shellController.failed(message);
         }
     }
 }

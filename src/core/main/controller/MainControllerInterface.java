@@ -5,6 +5,7 @@
  */
 package core.main.controller;
 
+import core.model.Database;
 import java.util.List;
 
 /**
@@ -34,4 +35,10 @@ public interface MainControllerInterface {
     void iWantThisBD(String name,boolean status);
 
     public boolean getShellText(String txt);
+
+    public void ShellSuccessMessage(String message);
+
+    public void ShellErrorMessage(String message);
+
+    public void showTable(Database banco);
 }
